@@ -18,7 +18,7 @@ class CommentCard extends StatefulWidget {
 class _CommentCardState extends State<CommentCard> {
   @override
   Widget build(BuildContext context) {
-    models.User user = Provider.of<UserProvider>(context).getUser;
+    models.User? user = Provider.of<UserProvider>(context).getUser;
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       child: Row(
@@ -89,7 +89,7 @@ class _CommentCardState extends State<CommentCard> {
                   widget.commentSnap['commentId'],
                   widget.commentSnap['likes']);
             },
-            icon: widget.commentSnap['likes'].contains(user.uid)
+            icon: widget.commentSnap['likes'].contains(user?.uid)
                 ? Icon(
                     Icons.favorite,
                     color: Colors.red,

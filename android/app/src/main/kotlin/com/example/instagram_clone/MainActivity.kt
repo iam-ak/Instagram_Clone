@@ -1,4 +1,4 @@
-package com.example.instagram_clone
+package com.aks.snapmirror
 
 import io.flutter.embedding.android.FlutterActivity
 

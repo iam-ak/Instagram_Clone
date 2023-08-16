@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.instagram_clone">
+    package="com.aks.snapmirror">
    <application
-        android:label="instagram_clone"
+        android:label="SnapMirror"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

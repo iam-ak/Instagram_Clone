@@ -47,7 +47,7 @@ class _PostCardState extends State<PostCard> {
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
-    final models.User user = Provider.of<UserProvider>(context).getUser;
+    final models.User? user = Provider.of<UserProvider>(context).getUser;
     return Container(
       decoration: BoxDecoration(
         color: Colors.black,
@@ -142,12 +142,10 @@ class _PostCardState extends State<PostCard> {
             children: [
               IconButton(
                 onPressed: () async {
-                  setState(() async {
-                    await FirestoreMethods().likePost(
-                        widget.snap['postId'], user.uid, widget.snap['likes']);
-                  });
+                  await FirestoreMethods().likePost(widget.snap['postId'],
+                      user?.uid ?? "", widget.snap['likes']);
                 },
-                icon: widget.snap['likes'].contains(user.uid)
+                icon: widget.snap['likes'].contains(user?.uid)
                     ? const Icon(
                         Icons.favorite,
                         color: Colors.red,

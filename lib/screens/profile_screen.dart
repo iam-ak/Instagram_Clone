@@ -18,7 +18,7 @@ import 'package:instagram_clone/widgets/post_card.dart';
 import 'edit_profile_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
-  models.User user;
+  models.User? user;
   ProfileScreen({
     Key? key,
     required this.user,
@@ -51,17 +51,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
     try {
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('posts')
-          .where('uid', isEqualTo: widget.user.uid)
+          .where('uid', isEqualTo: widget.user?.uid)
           .get();
       setState(() {
         totalPosts = querySnapshot.docs.length;
-        followers = widget.user.followers.length;
-        following = widget.user.following.length;
+        followers = widget.user?.followers.length??0;
+        following = widget.user?.following.length??0;
       });
-      if (widget.user.uid == FirebaseAuth.instance.currentUser!.uid) {
+      if (widget.user?.uid == FirebaseAuth.instance.currentUser!.uid) {
         return;
       }
-      if (widget.user.followers.contains(currentUserUid)) {
+      if (widget.user!=null && widget.user!.followers.contains(currentUserUid)) {
         text = 'Unfollow';
         icon = Icons.person;
         backColor = Colors.white;
@@ -88,7 +88,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Text(
-          widget.user.email,
+          widget.user?.email??"",
         ),
         actions: [
           IconButton(onPressed: () {}, icon: Icon(Icons.settings)),
@@ -100,7 +100,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection('users')
-                  .doc(widget.user.uid)
+                  .doc(widget.user?.uid)
                   .snapshots(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
@@ -115,7 +115,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         children: [
                           CircleAvatar(
                             backgroundImage:
-                                NetworkImage(widget.user.profileImageUrl),
+                                NetworkImage(widget.user?.profileImageUrl??""),
                             radius: 32,
                           ),
                           SizedBox(width: 32),
@@ -197,7 +197,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     top: 8,
                                   ),
                                   child: Text(
-                                    widget.user.username,
+                                    widget.user?.username??"",
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ),
@@ -207,7 +207,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     top: 4,
                                   ),
                                   child: Text(
-                                    widget.user.bio,
+                                    widget.user?.bio??"",
                                     style:
                                         TextStyle(fontStyle: FontStyle.italic),
                                   ),
@@ -239,7 +239,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         .get('followers')
                                         .contains(currentUserUid)) {
                                       FirestoreMethods().removeFollower(
-                                          currentUserUid, widget.user.uid);
+                                          currentUserUid, widget.user?.uid??"");
                                       setState(() {
                                         text = 'follow';
                                         icon = Icons.add_box;
@@ -250,7 +250,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       });
                                     } else {
                                       FirestoreMethods().addFollower(
-                                          currentUserUid, widget.user.uid);
+                                          currentUserUid, widget.user?.uid??"");
                                       setState(() {
                                         text = 'Unfollow';
                                         icon = Icons.person;
@@ -314,7 +314,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection("posts")
-                  .where('uid', isEqualTo: widget.user.uid)
+                  .where('uid', isEqualTo: widget.user?.uid)
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {

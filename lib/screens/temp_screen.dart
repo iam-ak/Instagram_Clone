@@ -43,7 +43,7 @@ class _TempScreenState extends State<TempScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final models.User user = Provider.of<UserProvider>(context).getUser;
+    final models.User? user = Provider.of<UserProvider>(context).getUser;
     return StreamBuilder(
       stream: FirebaseFirestore.instance
           .collection('posts')
@@ -147,10 +147,10 @@ class _TempScreenState extends State<TempScreen> {
                       onPressed: () {
                         setState(() {
                           FirestoreMethods().likePost(widget.snap['postId'],
-                              user.uid, snapshot.data!['likes']);
+                              user?.uid??"", snapshot.data!['likes']);
                         });
                       },
-                      icon: snapshot.data!['likes'].contains(user.uid)
+                      icon: snapshot.data!['likes'].contains(user?.uid)
                           ? const Icon(
                               Icons.favorite,
                               color: Colors.red,

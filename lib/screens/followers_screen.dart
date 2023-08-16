@@ -6,7 +6,7 @@ import 'package:instagram_clone/models/user.dart' as models;
 import 'package:instagram_clone/screens/profile_screen.dart';
 
 class FollowersScreen extends StatefulWidget {
-  models.User user;
+  models.User? user;
   FollowersScreen({
     Key? key,
     required this.user,
@@ -22,12 +22,12 @@ class _FollowersScreenState extends State<FollowersScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text(widget.user.username),
+        title: Text(widget.user?.username??""),
       ),
       body: StreamBuilder(
           stream: FirebaseFirestore.instance
               .collection('users')
-              .doc(widget.user.uid)
+              .doc(widget.user?.uid)
               .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {

@@ -107,7 +107,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
 
   @override
   Widget build(BuildContext context) {
-    model.User user = Provider.of<UserProvider>(context).getUser;
+    model.User? user = Provider.of<UserProvider>(context).getUser;
     return _file == null
         ? Center(
             child: IconButton(
@@ -134,8 +134,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
               title: const Text("New Post"),
               actions: [
                 IconButton(
-                  onPressed: () =>
-                      postImage(user.uid, user.username, user.profileImageUrl),
+                  onPressed: () => postImage(user?.uid ?? "",
+                      user?.username ?? "", user?.profileImageUrl ?? ""),
                   icon: const Icon(
                     Icons.check,
                     color: Colors.blue,
@@ -156,7 +156,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CircleAvatar(
-                      backgroundImage: NetworkImage(user.profileImageUrl),
+                      backgroundImage:
+                          NetworkImage(user?.profileImageUrl ?? ""),
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.5,

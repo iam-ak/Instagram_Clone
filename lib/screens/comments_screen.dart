@@ -28,7 +28,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    models.User user = Provider.of<UserProvider>(context).getUser;
+    models.User? user = Provider.of<UserProvider>(context).getUser;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -45,7 +45,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
           ),
           child: Row(children: [
             CircleAvatar(
-              backgroundImage: NetworkImage(user.profileImageUrl),
+              backgroundImage: NetworkImage(user?.profileImageUrl??""),
               radius: 18,
             ),
             Expanded(
@@ -53,7 +53,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
                 padding: const EdgeInsets.only(left: 16.0, right: 8),
                 child: TextField(
                   decoration: InputDecoration(
-                    hintText: "comment as " + user.username,
+                    hintText: "comment as ${user!.username}",
                     border: InputBorder.none,
                   ),
                   maxLines: 3,

@@ -45,14 +45,14 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
-    final models.User user = Provider.of<UserProvider>(context).getUser;
+    final models.User? user = Provider.of<UserProvider>(context).getUser;
     return Container(
       decoration: BoxDecoration(
         color: Colors.black,
       ),
-       padding: screenWidth >= webScreenSize
-            ? EdgeInsets.symmetric(horizontal: screenWidth * 0.3)
-            : const EdgeInsets.symmetric(horizontal: 0),
+      padding: screenWidth >= webScreenSize
+          ? EdgeInsets.symmetric(horizontal: screenWidth * 0.3)
+          : const EdgeInsets.symmetric(horizontal: 0),
       child: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('posts')
@@ -161,14 +161,12 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                       children: [
                         IconButton(
                           onPressed: () async {
-                            setState(() async {
-                              await FirestoreMethods().likePost(
-                                  widget.snap['postId'],
-                                  user.uid,
-                                  snapshot.data!['likes']);
-                            });
+                            await FirestoreMethods().likePost(
+                                widget.snap['postId'],
+                                user?.uid ?? "",
+                                snapshot.data!['likes']);
                           },
-                          icon: snapshot.data!['likes'].contains(user.uid)
+                          icon: snapshot.data!['likes'].contains(user?.uid)
                               ? const Icon(
                                   Icons.favorite,
                                   color: Colors.red,
@@ -279,8 +277,8 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                             },
                           ),
                           Padding(
-                            padding:
-                                EdgeInsets.symmetric(vertical: 4, horizontal: 2),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 4, horizontal: 2),
                             child: Text(
                               DateFormat.yMMMd().format(
                                 widget.snap['datePublished'].toDate(),

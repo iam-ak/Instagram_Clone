@@ -7,12 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:858838546933:android:9770b93fa0bcf8a3b048bc",
+        "mobilesdk_app_id": "1:858838546933:android:4228bfb88536218db048bc",
         "android_client_info": {
-          "package_name": "com.example.instagram_clone"
+          "package_name": "com.aks.snapmirror"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "858838546933-ofa2kom3a15osjuv1qco9pk3jkpqgo3k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aks.snapmirror",
+            "certificate_hash": "a2e681b85c64e41093fbe18df8755f01b9e5187c"
+          }
+        },
         {
           "client_id": "858838546933-6dtuut1cv0onhj318p3vv7fo7gcnq169.apps.googleusercontent.com",
           "client_type": 3
@@ -29,6 +37,13 @@
             {
               "client_id": "858838546933-6dtuut1cv0onhj318p3vv7fo7gcnq169.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "858838546933-d7b8j7g7d643huikoh5i7sc8kggcbm91.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.instagramClone"
+              }
             }
           ]
         }
